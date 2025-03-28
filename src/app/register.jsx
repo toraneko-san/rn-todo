@@ -6,11 +6,11 @@ import CustomTextInput from "@/components/TextInput";
 import CustomButton from "@/components/Button";
 import CustomLink from "@/components/Link";
 
-export default function LoginScreen() {
+export default function RegisterScreen() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  function login() {
+  function register() {
     //
   }
 
@@ -19,18 +19,19 @@ export default function LoginScreen() {
       <View style={styles.forms}>
         <CustomTextInput
           value={username}
-          onChangeText={setUsername}
-          placeholder="Nome do usuário"
+          onPress={setUsername}
+          placeholder="Nome do usuário (max: 10 caracteres)"
+          maxLength={10}
         />
         <CustomTextInput
           value={password}
-          onChangeText={setPassword}
-          placeholder="Senha"
-          secureTextEntry={true}
+          onPress={setPassword}
+          placeholder="Senha (max: 20 caracteres)"
+          maxLength={20}
         />
-        <CustomButton onPress={login}>Entrar</CustomButton>
+        <CustomButton onPress={register}>Cadastrar</CustomButton>
       </View>
-      <CustomLink link="/register">Não tem uma conta? Cadastre-se</CustomLink>
+      <CustomLink link="/">Já tem uma conta? Faça login!</CustomLink>
     </View>
   );
 }

@@ -11,8 +11,14 @@ export default function RootLayout() {
       }}
     >
       <Stack.Screen name="(tabs)" />
-      <Stack.Screen name="index" options={{ title: "Login" }} />
-      <Stack.Screen name="sign-up" options={{ title: "Cadastro" }} />
+      <Stack.Screen
+        name="index"
+        options={{ title: "Login", animation: "slide_from_left" }}
+      />
+      <Stack.Screen
+        name="register"
+        options={{ title: "Cadastro", animation: "slide_from_right" }}
+      />
     </Stack>
   );
 }

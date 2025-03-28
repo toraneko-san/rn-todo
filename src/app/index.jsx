@@ -20,14 +20,12 @@ export default function LoginScreen() {
         <CustomTextInput
           value={username}
           onChangeText={setUsername}
-          placeholder="Nome do usuário (max: 10 caracteres)"
-          maxLength={10}
+          placeholder="Nome do usuário"
         />
         <CustomTextInput
           value={password}
           onChangeText={setPassword}
-          placeholder="Senha (max: 20 caracteres)"
-          maxLength={20}
+          placeholder="Senha"
           secureTextEntry={true}
         />
         <CustomButton onPress={login}>Entrar</CustomButton>

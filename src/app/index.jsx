@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { View, StyleSheet } from "react-native";
+import { router } from "expo-router";
 
 import CustomTextInput from "@/components/TextInput";
 import CustomButton from "@/components/Button";
@@ -12,6 +13,7 @@ export default function LoginScreen() {
 
   function login() {
     //
+    router.replace("/tasks");
   }
 
   return (

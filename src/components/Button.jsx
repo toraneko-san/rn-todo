@@ -2,16 +2,15 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 export default function CustomButton({ children, onPress }) {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.button}>
-        <Text style={styles.buttonText}>{children}</Text>
-      </View>
+    <TouchableOpacity style={styles.button} onPress={onPress}>
+      <Text style={styles.buttonText}>{children}</Text>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
+    borderRadius: 5,
     padding: 15,
     backgroundColor: "rgb(50, 150, 250)",
   },

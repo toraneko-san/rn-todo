@@ -10,7 +10,7 @@ export default function RootLayout() {
         headerTitleStyle: { fontSize: 20, fontWeight: "bold" },
       }}
     >
-      <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen
         name="index"
         options={{ title: "Login", animation: "slide_from_left" }}

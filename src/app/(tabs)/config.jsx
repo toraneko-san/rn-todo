@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useSQLiteContext } from "expo-sqlite";
 
 import { View, StyleSheet } from "react-native";
 import { router } from "expo-router";
@@ -8,11 +9,17 @@ import CustomButton from "@/components/Button";
 import AuthContext from "@/contexts/AuthContext";
 
 export default function ConfigScreen() {
-  const { setUserId } = useContext(AuthContext);
+  const db = useSQLiteContext();
+  const { userId, setUserId } = useContext(AuthContext);
 
-  function deleteUser() {
-    //
-    router.replace("/");
+  async function deleteUser() {
+    try {
+      await db.runAsync("DELETE FROM users WHERE id = ?", userId);
+
+      router.replace("/");
+    } catch (error) {
+      throw error;
+    }
   }
 
   function logout() {

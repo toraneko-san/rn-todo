@@ -24,6 +24,8 @@ export default function AddTask({ refetchTasks }) {
         userId,
       ]);
 
+      setNewTask("");
+
       refetchTasks();
     } catch (error) {
       throw error;

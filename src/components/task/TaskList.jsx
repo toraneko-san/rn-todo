@@ -8,7 +8,11 @@ export default function TaskList({ tasks, refetchTasks }) {
       <FlatList
         data={tasks}
         renderItem={({ item }) => (
-          <Task isChecked={item.isDone} refetchTasks={refetchTasks}>
+          <Task
+            taskId={item.id}
+            isChecked={item.isDone}
+            refetchTasks={refetchTasks}
+          >
             {item.taskName}
           </Task>
         )}

@@ -3,13 +3,17 @@ import { StyleSheet, Text, View } from "react-native";
 import CheckTaskIcon from "./CheckTaskIcon";
 import DeleteTaskIcon from "./DeleteTaskIcon";
 
-export default function Task({ children, isChecked, refetchTasks }) {
+export default function Task({ children, taskId, isChecked, refetchTasks }) {
   return (
     <View style={styles.container}>
       <Text style={styles.taskName}>{children}</Text>
       <View style={styles.iconContainer}>
-        <CheckTaskIcon isChecked={isChecked} refetchTasks={refetchTasks} />
-        <DeleteTaskIcon refetchTasks={refetchTasks} />
+        <CheckTaskIcon
+          taskId={taskId}
+          isChecked={isChecked}
+          refetchTasks={refetchTasks}
+        />
+        <DeleteTaskIcon taskId={taskId} refetchTasks={refetchTasks} />
       </View>
     </View>
   );

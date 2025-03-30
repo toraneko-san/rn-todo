@@ -1,19 +1,43 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useSQLiteContext } from "expo-sqlite";
 
-import { View, StyleSheet } from "react-native";
+import { View, Alert, StyleSheet } from "react-native";
 import { router } from "expo-router";
 
 import CustomTextInput from "@/components/TextInput";
 import CustomButton from "@/components/Button";
 import CustomLink from "@/components/Link";
 
+import AuthContext from "@/contexts/AuthContext";
+
 export default function LoginScreen() {
+  const db = useSQLiteContext();
+  const { setUserId } = useContext(AuthContext);
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  function login() {
-    //
-    router.replace("/tasks");
+  async function login() {
+    if (!username || !password) {
+      return Alert.alert("Preencha todos os campos!");
+    }
+
+    try {
+      const registeredUser = await db.getFirstAsync(
+        "SELECT * FROM users WHERE username = ? AND password = ?",
+        [username, password]
+      );
+
+      if (!registeredUser) {
+        return Alert.alert("Nome do usuário ou senha incorreto.");
+      }
+
+      setUserId(registeredUser.id);
+
+      router.replace("/tasks");
+    } catch (error) {
+      throw error;
+    }
   }
 
   return (

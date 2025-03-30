@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { View, StyleSheet } from "react-native";
+import { router } from "expo-router";
 
 import CustomTextInput from "@/components/TextInput";
 import CustomButton from "@/components/Button";
@@ -12,6 +13,7 @@ export default function RegisterScreen() {
 
   function register() {
     //
+    router.dismissAll();
   }
 
   return (
@@ -31,7 +33,9 @@ export default function RegisterScreen() {
         />
         <CustomButton onPress={register}>Cadastrar</CustomButton>
       </View>
-      <CustomLink link="/">Já tem uma conta? Faça login!</CustomLink>
+      <CustomLink link="/" dismissTo>
+        Já tem uma conta? Faça login!
+      </CustomLink>
     </View>
   );
 }

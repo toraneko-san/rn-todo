@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { Link } from "expo-router";
 
-export default function CustomLink({ children, link }) {
+export default function CustomLink({ children, link, ...props }) {
   return (
-    <Link href={link} style={styles.link}>
+    <Link href={link} style={styles.link} {...props}>
       {children}
     </Link>
   );

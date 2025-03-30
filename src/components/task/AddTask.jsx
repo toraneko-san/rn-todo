@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useSQLiteContext } from "expo-sqlite";
 
 import { StyleSheet, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -6,12 +7,27 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import CustomTextInput from "../TextInput";
 import CustomButton from "../Button";
 
+import AuthContext from "@/contexts/AuthContext";
+
 export default function AddTask({ refetchTasks }) {
+  const db = useSQLiteContext();
+  const { userId } = useContext(AuthContext);
+
   const [newTask, setNewTask] = useState("");
 
-  function add() {
-    //
-    refetchTasks();
+  async function add() {
+    try {
+      if (!newTask) return;
+
+      await db.runAsync("INSERT INTO tasks (taskName, userId) VALUES (?,?)", [
+        newTask,
+        userId,
+      ]);
+
+      refetchTasks();
+    } catch (error) {
+      throw error;
+    }
   }
 
   return (

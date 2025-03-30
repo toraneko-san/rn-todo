@@ -1,20 +1,31 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useSQLiteContext } from "expo-sqlite";
+
 import { View, Text, StyleSheet } from "react-native";
 
 import AddTask from "@/components/task/AddTask";
 import FilterTasks from "@/components/task/FilterTasks";
 import TaskList from "@/components/task/TaskList";
 
-const TASKS = [
-  { id: 1, taskName: "Tarefa 1", isDone: true },
-  { id: 2, taskName: "Tarefa 2", isDone: false },
-];
+import AuthContext from "@/contexts/AuthContext";
 
 export default function TasksScreen() {
-  const [tasks, setTasks] = useState(TASKS);
+  const db = useSQLiteContext();
+  const { userId } = useContext(AuthContext);
 
-  function getTaskList() {
-    //
+  const [tasks, setTasks] = useState([]);
+
+  async function getTaskList() {
+    try {
+      const storedTasks = await db.getAllAsync(
+        "SELECT * FROM tasks WHERE userId = ?",
+        userId
+      );
+
+      setTasks(storedTasks);
+    } catch (error) {
+      throw error;
+    }
   }
 
   useEffect(() => {

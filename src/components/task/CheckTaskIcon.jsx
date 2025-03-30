@@ -1,10 +1,22 @@
+import { useSQLiteContext } from "expo-sqlite";
+
 import { StyleSheet, Pressable } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function CheckTaskIcon({ taskId, isChecked, refetchTasks }) {
-  function checkTask() {
-    //
-    refetchTasks();
+  const db = useSQLiteContext();
+
+  async function checkTask() {
+    try {
+      await db.runAsync("UPDATE tasks SET isDone = ? WHERE id = ?", [
+        !isChecked,
+        taskId,
+      ]);
+
+      refetchTasks();
+    } catch (error) {
+      throw error;
+    }
   }
 
   return (

@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { useSQLiteContext } from "expo-sqlite";
 
-import { View, StyleSheet } from "react-native";
+import { View, Alert, StyleSheet } from "react-native";
 import { router } from "expo-router";
 
 import CustomTextInput from "@/components/TextInput";
@@ -8,12 +9,40 @@ import CustomButton from "@/components/Button";
 import CustomLink from "@/components/Link";
 
 export default function RegisterScreen() {
+  const db = useSQLiteContext();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  function register() {
-    //
-    router.dismissAll();
+  async function register() {
+    if (!username || !password) {
+      return Alert.alert("Preencha todos os campos!");
+    }
+
+    try {
+      const duplicatedUser = await db.getFirstAsync(
+        "SELECT * FROM users WHERE username = ?",
+        username
+      );
+
+      if (duplicatedUser) {
+        return Alert.alert(
+          "Nome do usuário existente",
+          "Cadastre com outro nome!"
+        );
+      }
+
+      await db.runAsync(
+        "INSERT INTO users (username, password) VALUES (?, ?)",
+        [username, password]
+      );
+
+      Alert.alert("Cadastrado realizado com sucesso!");
+
+      router.dismissAll();
+    } catch (error) {
+      throw error;
+    }
   }
 
   return (
@@ -21,15 +50,13 @@ export default function RegisterScreen() {
       <View style={styles.forms}>
         <CustomTextInput
           value={username}
-          onPress={setUsername}
-          placeholder="Nome do usuário (max: 10 caracteres)"
-          maxLength={10}
+          onChangeText={setUsername}
+          placeholder="Nome do usuário"
         />
         <CustomTextInput
           value={password}
-          onPress={setPassword}
-          placeholder="Senha (max: 20 caracteres)"
-          maxLength={20}
+          onChangeText={setPassword}
+          placeholder="Senha"
         />
         <CustomButton onPress={register}>Cadastrar</CustomButton>
       </View>

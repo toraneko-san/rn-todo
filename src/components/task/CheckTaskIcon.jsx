@@ -13,6 +13,7 @@ export default function CheckTaskIcon({ taskId, isChecked, refetchTasks }) {
         name={isChecked ? "check-square" : "square-o"}
         size={30}
         color={isChecked ? "rgb(50, 200, 50)" : "rgb(0,0,0)"}
+        style={styles.icon}
       />
     </Pressable>
   );
@@ -20,4 +21,5 @@ export default function CheckTaskIcon({ taskId, isChecked, refetchTasks }) {
 
 const styles = StyleSheet.create({
   container: { justifyContent: "center", paddingHorizontal: 10 },
+  icon: { paddingTop: 5 },
 });

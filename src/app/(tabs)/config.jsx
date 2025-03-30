@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useSQLiteContext } from "expo-sqlite";
 
-import { View, StyleSheet } from "react-native";
+import { View, Alert, StyleSheet } from "react-native";
 import { router } from "expo-router";
 
 import CustomButton from "@/components/Button";
@@ -12,14 +12,25 @@ export default function ConfigScreen() {
   const db = useSQLiteContext();
   const { userId, setUserId } = useContext(AuthContext);
 
-  async function deleteUser() {
-    try {
-      await db.runAsync("DELETE FROM users WHERE id = ?", userId);
+  function deleteUser() {
+    Alert.alert("Deletar usuário", "Tem certeza que quer deletar sua conta?", [
+      {
+        text: "Cancelar",
+        style: "cancel",
+      },
+      {
+        text: "OK",
+        onPress: async () => {
+          try {
+            await db.runAsync("DELETE FROM users WHERE id = ?", userId);
 
-      router.replace("/");
-    } catch (error) {
-      throw error;
-    }
+            router.replace("/");
+          } catch (error) {
+            throw error;
+          }
+        },
+      },
+    ]);
   }
 
   function logout() {

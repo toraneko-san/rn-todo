@@ -1,5 +1,5 @@
 import { StyleSheet, Pressable } from "react-native";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function CheckTaskIcon({ taskId, isChecked, refetchTasks }) {
   function checkTask() {
@@ -9,8 +9,8 @@ export default function CheckTaskIcon({ taskId, isChecked, refetchTasks }) {
 
   return (
     <Pressable style={styles.container} onPress={checkTask}>
-      <FontAwesome
-        name={isChecked ? "check-square" : "square-o"}
+      <Ionicons
+        name={isChecked ? "checkbox" : "square-outline"}
         size={30}
         color={isChecked ? "rgb(50, 200, 50)" : "rgb(0,0,0)"}
         style={styles.icon}

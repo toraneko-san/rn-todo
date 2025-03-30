@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { StyleSheet, View } from "react-native";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 import CustomTextInput from "../TextInput";
 import CustomButton from "../Button";
@@ -18,9 +18,9 @@ export default function AddTask({ refetchTasks }) {
     <View style={styles.container}>
       <View style={{ flexDirection: "row" }}>
         <View style={styles.iconContainer}>
-          <FontAwesome6
-            name="clipboard-list"
-            size={20}
+          <Ionicons
+            name="clipboard-outline"
+            size={25}
             color="rgb(255,255,255)"
           />
         </View>

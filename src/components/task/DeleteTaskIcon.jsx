@@ -1,5 +1,5 @@
 import { StyleSheet, Pressable } from "react-native";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function DeleteTaskIcon({ taskId, refetchTasks }) {
   function deleteTask() {
@@ -9,7 +9,7 @@ export default function DeleteTaskIcon({ taskId, refetchTasks }) {
 
   return (
     <Pressable style={styles.container} onPress={deleteTask}>
-      <FontAwesome name="trash" size={30} color="rgb(200,50,50)" />
+      <Ionicons name="trash" size={30} color="rgb(200,50,50)" />
     </Pressable>
   );
 }

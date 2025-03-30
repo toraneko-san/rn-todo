@@ -14,6 +14,7 @@ export default function TasksScreen() {
   const { userId } = useContext(AuthContext);
 
   const [tasks, setTasks] = useState([]);
+  const [filterOption, setFilterOption] = useState(null);
 
   async function getTaskList() {
     try {
@@ -32,12 +33,19 @@ export default function TasksScreen() {
     getTaskList();
   }, []);
 
+  const filteredTask =
+    filterOption == "todo"
+      ? tasks.filter((item) => !item.isDone)
+      : filterOption == "done"
+      ? tasks.filter((item) => item.isDone)
+      : tasks;
+
   return (
     <View style={styles.container}>
-      <AddTask refetchTasks={getTaskList} />
+      <AddTask setFilterOption={setFilterOption} refetchTasks={getTaskList} />
       <Text style={styles.title}>Tarefas</Text>
-      <FilterTasks filterTasks={setTasks} refetchTasks={getTaskList} />
-      <TaskList tasks={tasks} refetchTasks={getTaskList} />
+      <FilterTasks setFilterOption={setFilterOption} />
+      <TaskList tasks={filteredTask} refetchTasks={getTaskList} />
     </View>
   );
 }

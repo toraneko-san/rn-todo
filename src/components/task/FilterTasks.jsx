@@ -1,38 +1,15 @@
-import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 import CustomButton from "../Button";
 
-export default function FilterTasks({ filterTasks, refetchTasks }) {
-  const [filterOption, setFilterOption] = useState("");
-
-  function filter(option) {
-    //
-    filterTasks([]);
-  }
-
+export default function FilterTasks({ setFilterOption }) {
   return (
     <View style={styles.container}>
-      <CustomButton
-        onPress={() => {
-          setFilterOption("");
-          refetchTasks();
-        }}
-      >
-        Todos
-      </CustomButton>
-      <CustomButton
-        onPress={() => {
-          filter("todo");
-        }}
-      >
+      <CustomButton onPress={() => setFilterOption(null)}>Todos</CustomButton>
+      <CustomButton onPress={() => setFilterOption("todo")}>
         A fazer
       </CustomButton>
-      <CustomButton
-        onPress={() => {
-          filter("done");
-        }}
-      >
+      <CustomButton onPress={() => setFilterOption("done")}>
         Feitos
       </CustomButton>
     </View>

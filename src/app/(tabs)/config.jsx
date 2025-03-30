@@ -1,16 +1,22 @@
+import { useContext } from "react";
+
 import { View, StyleSheet } from "react-native";
 import { router } from "expo-router";
 
 import CustomButton from "@/components/Button";
 
+import AuthContext from "@/contexts/AuthContext";
+
 export default function ConfigScreen() {
+  const { setUserId } = useContext(AuthContext);
+
   function deleteUser() {
     //
     router.replace("/");
   }
 
   function logout() {
-    //
+    setUserId(null);
     router.replace("/");
   }
 

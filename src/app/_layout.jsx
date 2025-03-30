@@ -13,7 +13,7 @@ export default function RootLayout() {
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen
         name="index"
-        options={{ title: "Login", animation: "slide_from_left" }}
+        options={{ title: "Login", animation: "slide_from_right" }}
       />
       <Stack.Screen
         name="register"

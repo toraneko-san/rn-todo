@@ -16,8 +16,6 @@ export function AuthProvider({ children }) {
     });
   }, []);
 
-  useEffect(() => {}, []);
-
   function createSession(value) {
     setUserId(value);
     setIsAuthenticated(true);

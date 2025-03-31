@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { useSQLiteContext } from "expo-sqlite";
 
-import { View, Alert, ActivityIndicator, StyleSheet } from "react-native";
+import { View, Alert, StyleSheet } from "react-native";
 import { router } from "expo-router";
 
 import CustomTextInput from "@/components/TextInput";

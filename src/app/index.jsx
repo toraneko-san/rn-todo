@@ -1,7 +1,7 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useSQLiteContext } from "expo-sqlite";
 
-import { View, Alert, StyleSheet } from "react-native";
+import { View, Alert, ActivityIndicator, StyleSheet } from "react-native";
 import { router } from "expo-router";
 
 import CustomTextInput from "@/components/TextInput";
@@ -12,10 +12,16 @@ import AuthContext from "@/contexts/AuthContext";
 
 export default function LoginScreen() {
   const db = useSQLiteContext();
-  const { setUserId } = useContext(AuthContext);
+  const { createSession, isAuthenticated } = useContext(AuthContext);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.replace("/tasks");
+    }
+  }, [isAuthenticated]);
 
   async function login() {
     if (!username || !password) {
@@ -32,7 +38,7 @@ export default function LoginScreen() {
         return Alert.alert("Nome do usuário ou senha incorreto.");
       }
 
-      setUserId(registeredUser.id);
+      createSession(registeredUser.id);
 
       router.replace("/tasks");
     } catch (error) {

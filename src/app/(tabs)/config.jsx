@@ -10,7 +10,7 @@ import AuthContext from "@/contexts/AuthContext";
 
 export default function ConfigScreen() {
   const db = useSQLiteContext();
-  const { userId, setUserId } = useContext(AuthContext);
+  const { userId, finishSession } = useContext(AuthContext);
 
   function deleteUser() {
     Alert.alert("Deletar usuário", "Tem certeza que quer deletar sua conta?", [
@@ -34,7 +34,7 @@ export default function ConfigScreen() {
   }
 
   function logout() {
-    setUserId(null);
+    finishSession();
     router.replace("/");
   }
 

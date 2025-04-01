@@ -1,16 +1,12 @@
 import { createContext, useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 
-import { router } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
-
-SplashScreen.preventAutoHideAsync();
-
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [userId, setUserId] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAppReady, setIsAppReady] = useState(false);
 
   useEffect(() => {
     SecureStore.getItemAsync("userId")
@@ -19,10 +15,8 @@ export function AuthProvider({ children }) {
 
         setUserId(Number(value));
         setIsAuthenticated(true);
-
-        router.replace("/tasks");
       })
-      .finally(() => SplashScreen.hideAsync());
+      .finally(() => setIsAppReady(true));
   }, []);
 
   function createSession(value) {
@@ -39,7 +33,13 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ userId, isAuthenticated, createSession, finishSession }}
+      value={{
+        userId,
+        isAuthenticated,
+        isAppReady,
+        createSession,
+        finishSession,
+      }}
     >
       {children}
     </AuthContext.Provider>

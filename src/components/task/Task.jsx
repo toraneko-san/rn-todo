@@ -6,7 +6,9 @@ import DeleteTaskIcon from "./DeleteTaskIcon";
 export default function Task({ children, taskId, isChecked, refetchTasks }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.taskName}>{children}</Text>
+      <Text style={[styles.taskName, isChecked ? styles.checkedTaskName : {}]}>
+        {children}
+      </Text>
       <View style={styles.iconContainer}>
         <CheckTaskIcon
           taskId={taskId}
@@ -30,5 +32,9 @@ const styles = StyleSheet.create({
     minHeight: 60,
   },
   taskName: { fontSize: 20, flex: 1 },
+  checkedTaskName: {
+    textDecorationLine: "line-through",
+    color: "rgb(250,0,0)",
+  },
   iconContainer: { flexDirection: "row", alignSelf: "stretch" },
 });

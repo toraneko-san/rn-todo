@@ -29,7 +29,7 @@ export default function DeleteTaskIcon({ taskId, refetchTasks }) {
 
   return (
     <Pressable style={styles.container} onPress={deleteTask}>
-      <Ionicons name="trash" size={30} color="rgb(200,50,50)" />
+      <Ionicons name="trash" size={30} color="rgb(250,0,0)" />
     </Pressable>
   );
 }
